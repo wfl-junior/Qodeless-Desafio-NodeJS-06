@@ -1,5 +1,5 @@
 import { ask } from "./ask";
-import { Student } from "./database/models/Student";
+import { Student } from "./database/entities/Student";
 
 export async function askForNewStudent() {
   const newStudentName = await ask("Qual é o nome do aluno? ");

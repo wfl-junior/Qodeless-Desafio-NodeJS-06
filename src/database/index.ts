@@ -1,5 +1,5 @@
-import { Sequelize } from "sequelize";
+import { Client } from "pg";
 
-export const sequelize = new Sequelize(process.env.DATABASE_URL, {
-  logging: false,
+export const client = new Client({
+  connectionString: process.env.DATABASE_URL,
 });

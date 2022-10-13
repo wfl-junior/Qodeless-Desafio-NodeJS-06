@@ -7,7 +7,7 @@ import "dotenv/config";
 import express from "express";
 import helmet from "helmet";
 import { askForNewStudent } from "./askForNewStudent";
-import { sequelize } from "./database";
+import { setupDatabase } from "./database/setupDatabase";
 
 /**
  * App Variables
@@ -40,7 +40,7 @@ app.listen(PORT, async () => {
   // R01, R02, R03, R04, R05
 
   try {
-    await sequelize.sync();
+    await setupDatabase();
     await askForNewStudent();
   } catch (error) {
     console.log("Houston, we have a problem: ", error);
