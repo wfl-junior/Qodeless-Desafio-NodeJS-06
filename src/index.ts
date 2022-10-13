@@ -2,19 +2,19 @@
  * Required External Modules
  */
 
-import * as dotenv from "dotenv";
-import express from "express";
 import cors from "cors";
+import "dotenv/config";
+import express from "express";
 import helmet from "helmet";
-
-dotenv.config();
+import { askForNewStudent } from "./askForNewStudent";
+import { sequelize } from "./database";
 
 /**
  * App Variables
  */
 
 if (!process.env.PORT) {
-	process.exit(1);
+  process.exit(1);
 }
 
 const PORT: number = parseInt(process.env.PORT as string, 10);
@@ -33,11 +33,16 @@ app.use(express.json());
  * Server Activation
  */
 
-app.listen(PORT, () => {
-	console.log(`Listening on port ${PORT}`);
+app.listen(PORT, async () => {
+  console.log(`Listening on port ${PORT}`);
 
+  // CÓDIGO PARA ATENDER OS REQUERIMENTOS
+  // R01, R02, R03, R04, R05
 
-	// CÓDIGO PARA ATENDER OS REQUERIMENTOS
-	// R01, R02, R03, R04, R05
-	
+  try {
+    await sequelize.sync();
+    await askForNewStudent();
+  } catch (error) {
+    console.log("Houston, we have a problem: ", error);
+  }
 });
